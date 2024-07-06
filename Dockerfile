@@ -7,7 +7,7 @@ WORKDIR /src
 
 # 将 package.json 和 package-lock.json 文件复制到工作目录
 COPY package*.json ./
-
+RUN proxy_on
 # 安装依赖项
 RUN npm install
 
