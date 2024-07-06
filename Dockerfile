@@ -4,7 +4,8 @@ FROM node:18
 
 #  设置工作目录
 WORKDIR /src
-
+ENV http_proxy http://127.0.0.1:7890
+ENV https_proxy http://127.0.0.1:7890
 # 将 package.json 和 package-lock.json 文件复制到工作目录
 COPY package*.json ./
 RUN proxy_on
