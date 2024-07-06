@@ -1,11 +1,10 @@
 
  # 基础镜像
-FROM node:18
+FROM node:20
 
 #  设置工作目录
 WORKDIR /src
-ENV http_proxy http://127.0.0.1:7890
-ENV https_proxy http://127.0.0.1:7890
+RUN npm config set registry https://registry.npmmirror.com
 # 将 package.json 和 package-lock.json 文件复制到工作目录
 COPY package*.json ./
 # 安装依赖项
@@ -13,7 +12,7 @@ RUN npm install
 
 # 将应用源代码复制到容器中
 COPY . .
-RUN npm install mysql2
+
 # 编译Next.js应用
 RUN npm run build
 
