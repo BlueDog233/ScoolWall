@@ -6,7 +6,7 @@ async function connectToDatabase() {
         host: 'mysql',
         user: 'root',
         password: '123456',
-        database: 'posts',
+        database: 'posts' ,
     });
 }
 
