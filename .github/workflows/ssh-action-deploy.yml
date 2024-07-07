@@ -1,0 +1,31 @@
+name: 🐥 ssh-action-deploy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+    
+jobs:
+  build:
+    name: 🕳️ Ubuntu...
+    runs-on: ubuntu-latest
+    steps:
+      - name: 💞 Github actions...
+        uses: actions/checkout@v3
+        
+      - name: 🌈 Deploy with ssh...
+        uses: sebastianjnuwu/ssh-action-deploy@v3
+        with:
+          IP: ${{ secrets.IP }}
+          USER: ${{ secrets.USER }}
+          KEY: ${{ secrets.KEY }}
+          FOLDER: "/root/.deploy"
+          RUN: |
+            proxy_on;
+            rm -rf ScoolWall;
+            git clone https://github.com/BlueDog233/ScoolWall;
+            docker ps --filter ancestor=nodejs-app --format {{.ID}} | xargs -I {} sh -c 'docker stop {}; docker rm {}; docker rmi nodejs-app';
+            docker build -t nodejs-app .;
+            docker run -it -p3000:3000 --add-host=mysql:172.17.0.1  --name my-nodejs-app nodejs-app;
+            
