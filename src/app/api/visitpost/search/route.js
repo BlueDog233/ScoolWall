@@ -4,7 +4,7 @@ import {log} from "next/dist/server/typescript/utils";
 
 async function connectToDatabase() {
     return createConnection({
-        host: 'localhost',
+        host: 'mysql',
         user: 'root',
         password: '123456',
         database: 'posts',

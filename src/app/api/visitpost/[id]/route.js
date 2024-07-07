@@ -3,7 +3,7 @@ import { createConnection } from 'mysql2/promise';
 
 async function connectToDatabase() {
     return createConnection({
-        host: 'localhost',
+        host: 'mysql',
         user: 'root',
         password: '123456',
         database: 'posts' ,

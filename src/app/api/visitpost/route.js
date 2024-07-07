@@ -4,7 +4,7 @@ import { createConnection } from 'mysql2/promise';
 // 数据库连接函数
 async function connectToDatabase() {
     return createConnection({
-        host: 'localhost',
+        host: 'mysql',
         user: 'root',
         password: '123456',
         database: 'posts',
