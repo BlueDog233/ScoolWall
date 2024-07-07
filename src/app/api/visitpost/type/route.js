@@ -3,7 +3,7 @@ import {NextResponse} from "next/server";
 
 async function connectToDatabase() {
     return createConnection({
-        host: 'localhost',
+        host: 'mysql',
         user: 'root',
         password: '123456',
         database: 'posts',
@@ -15,8 +15,6 @@ export async function GET(request) {
     const connection = await connectToDatabase();
     try {
         let query = 'SELECT DISTINCT type FROM posts';
-
-
         const [rows] = await connection.execute(query);
         await connection.end();
         let types=[]

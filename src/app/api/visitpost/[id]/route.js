@@ -28,20 +28,30 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
     const { id } = params;
-    const { title, content, by, type } = await request.json();
+    const postData = await request.json(); // this would be an object with the fields to update
     const connection = await connectToDatabase();
+
+    let query = 'UPDATE posts SET ';
+    let updates = [];
+    let values = [];
+
+    for (const [field, value] of Object.entries(postData)) {
+        updates.push(`\`${field}\` = ?`);
+        values.push(value);
+    }
+
+    query += updates.join(', ');
+    query += ' WHERE id = ?';
+    values.push(id);
     try {
-        await connection.execute(
-            'UPDATE posts SET title = ?, content = ?, `by` = ?, type = ? WHERE id = ?',
-            [title, content, by, type, id]
-        );
+        await connection.execute(query, values);
         await connection.end();
-        return NextResponse.json({ message: '帖子更新成功' });
+        return NextResponse.json({ message: 'Post has been successfully updated.' });
     } catch (error) {
-        return NextResponse.json({ error: '更新帖子失败' }, { status: 500 });
+        console.error('Failed to update post:', error);
+        return NextResponse.json({ error: 'Failed to update post.' }, { status: 500 });
     }
 }
-
 export async function DELETE(request, { params }) {
     const { id } = params;
     const connection = await connectToDatabase();

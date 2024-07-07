@@ -36,11 +36,11 @@ export async function GET(request) {
 
 export async function POST(request) {
     const connection = await connectToDatabase();
-    const { title, content, by, type } = await request.json();
+    const { title, content, by, type,weight,expire,star,time } = await request.json();
     try {
         const [result] = await connection.execute(
-            'INSERT INTO posts (title, content, `by`, type, time) VALUES (?, ?, ?, ?, NOW())',
-            [title, content, by, type]
+            'INSERT INTO posts (title, content, `by`, type, weight,expire,star,time) VALUES (?, ?, ?, ?,?,?,?, NOW())',
+            [title, content, by, type,weight,expire,star,time]
         );
         await connection.end();
         return NextResponse.json({ id: result.insertId, message: '帖子创建成功' }, { status: 201 });
