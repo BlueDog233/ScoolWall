@@ -4,7 +4,7 @@ import {NextResponse} from "next/server";
 async function connectToDatabase() {
     return createConnection({
         host: 'mysql',
-        user: 'root',
+        user: 'root', 
         password: '123456',
         database: 'posts',
     });
