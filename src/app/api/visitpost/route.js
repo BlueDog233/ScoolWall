@@ -38,7 +38,7 @@ export async function POST(request) {
     const connection = await connectToDatabase();
     const { title, content, by, type,weight,expire,star,time } = await request.json();
     try {
-        const [result] = await connection.execute(
+        const [result] = await  connection.execute(
             'INSERT INTO posts (title, content, `by`, type, weight,expire,star,time) VALUES (?, ?, ?, ?,?,?,?, NOW())',
             [title, content, by, type,weight,expire,star,time]
         );
